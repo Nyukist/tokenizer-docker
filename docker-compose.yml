@@ -1,0 +1,29 @@
+version: '1.1'
+
+services:
+  ubuntu:
+    image: ubuntu
+    build:
+      context: ./ubuntu
+      dockerfile: Dockerfile
+    restart: always
+    links:
+      - 'db:mysql'
+    volumes:
+      - ./python-scripts/:/home/python-user/work
+    container_name: ubuntu
+    depends_on:
+      - db
+    command: tail -f /dev/null
+
+  db:
+    image: mysql:8.0.32
+    restart: always
+    volumes:
+      - ./python-db:/var/lib/mysql/
+    env_file:
+      - ./env/.mysql.env
+    container_name: mysql
+    command:
+      - --character-set-server=utf8
+      - --collation-server=utf8_general_ci
