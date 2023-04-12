@@ -17,7 +17,7 @@ RUN apt-get install -y iputils-ping
 
 WORKDIR /home/python-user/work
 RUN cd /home/python-user/work
-# RUN git clone https://github.com/Nyukist/tokenizer.git
+RUN git clone https://github.com/Nyukist/tokenizer.git
 RUN cd /home/python-user/work/tokenizer
 RUN python3 -m venv .venv
 RUN pip install peewee
